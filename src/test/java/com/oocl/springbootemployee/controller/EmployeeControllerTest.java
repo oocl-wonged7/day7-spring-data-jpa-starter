@@ -48,7 +48,7 @@ class EmployeeControllerTest {
         employeeInMemoryRepository.create(new Employee(4, "Emily Brown", 23, Gender.FEMALE, 4500.0));
         employeeInMemoryRepository.create(new Employee(5, "Michael Jones", 40, Gender.MALE, 7000.0));
 
-        employeeRepository.findAll().clear();
+        employeeRepository.deleteAll();
         employeeRepository.save(new Employee("John Smith", 32, Gender.MALE, 5000.0));
         employeeRepository.save(new Employee("Jane Johnson", 28, Gender.FEMALE, 6000.0));
         employeeRepository.save(new Employee("David Williams", 35, Gender.MALE, 5500.0));
@@ -93,8 +93,8 @@ class EmployeeControllerTest {
     @Test
     void should_return_employees_when_get_by_gender() throws Exception {
         // Given
-        Employee femaleEmployee = employeeInMemoryRepository.findAll().get(1);
-        Employee femaleEmployee2 = employeeInMemoryRepository.findAll().get(3);
+        Employee femaleEmployee = employeeRepository.findAll().get(1);
+        Employee femaleEmployee2 = employeeRepository.findAll().get(3);
 
         // When
         // Then
