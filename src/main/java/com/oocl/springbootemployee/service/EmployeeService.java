@@ -32,7 +32,7 @@ public class EmployeeService {
     }
 
     public List<Employee> findAll(Integer page, Integer pageSize) {
-        return employeeRepository.findAll(PageRequest.of(page-1, pageSize)).getContent();
+        return employeeRepository.findAll(PageRequest.of(page - 1, pageSize)).getContent();
     }
 
     public Optional<Employee> findById(Integer employeeId) {
