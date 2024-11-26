@@ -6,10 +6,11 @@ import com.oocl.springbootemployee.exception.EmployeeInactiveException;
 import com.oocl.springbootemployee.model.Employee;
 import com.oocl.springbootemployee.model.Gender;
 import com.oocl.springbootemployee.repository.EmployeeInMemoryRepository;
-import java.util.List;
-
 import com.oocl.springbootemployee.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service
 public class EmployeeService {
     private final EmployeeInMemoryRepository employeeInMemoryRepository;
@@ -37,21 +38,26 @@ public class EmployeeService {
     }
 
     public Employee create(Employee employee) {
-        if(employee.getAge() < 18 || employee.getAge() > 65)
+        if (employee.getAge() < 18 || employee.getAge() > 65)
             throw new EmployeeAgeNotValidException();
-        if(employee.getAge() >= 30 && employee.getSalary() < 20000.0)
+        if (employee.getAge() >= 30 && employee.getSalary() < 20000.0)
             throw new EmployeeAgeSalaryNotMatchedException();
 
         employee.setActive(true);
         return employeeRepository.save(employee);
     }
 
-    public Employee update(Integer employeeId , Employee employee) {
-        Employee employeeExisted = employeeInMemoryRepository.findById(employeeId);
-        if(!employeeExisted.getActive())
+    public Employee update(Integer employeeId, Employee employee) {
+        Employee employeeExisted = employeeRepository.getById(employeeId);
+        employeeExisted.setName(employee.getName() == null ? employeeExisted.getName() : employee.getName());
+        employeeExisted.setGender(employee.getGender() == null ? employeeExisted.getGender() : employee.getGender());
+        employeeExisted.setAge(employee.getAge() == null ? employeeExisted.getAge() : employee.getAge());
+        employeeExisted.setSalary(employee.getSalary() == null ? employeeExisted.getSalary() : employee.getSalary());
+        employeeExisted.setActive(employee.getActive() == null ? employeeExisted.getActive() : employee.getActive());
+        if (!employeeExisted.getActive())
             throw new EmployeeInactiveException();
 
-        return employeeInMemoryRepository.update(employeeId, employee);
+        return employeeRepository.save(employeeExisted);
     }
 
     public void delete(Integer employeeId) {

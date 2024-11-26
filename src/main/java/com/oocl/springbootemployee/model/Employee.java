@@ -76,6 +76,10 @@ public class Employee {
         this.salary = salary;
     }
 
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
+
     public Boolean getActive() {
         return isActive;
     }
