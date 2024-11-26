@@ -13,4 +13,5 @@ import java.util.List;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     public List<Employee> getAllByGender(Gender gender);
     public Page<Employee> findAll(Pageable pageable);
+    public Employee deleteById(int id);
 }
