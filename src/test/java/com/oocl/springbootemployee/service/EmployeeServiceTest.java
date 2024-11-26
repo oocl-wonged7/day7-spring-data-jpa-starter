@@ -24,6 +24,7 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 
 class EmployeeServiceTest {
+
     @Mock
     EmployeeInMemoryRepository mockedEmployeeInMemoryRepository = mock(EmployeeInMemoryRepository.class);
     @Mock
@@ -68,18 +69,17 @@ class EmployeeServiceTest {
         //when
         //then
         assertThrows(EmployeeAgeNotValidException.class, () -> employeeService.create(kitty));
-        verify(mockedEmployeeInMemoryRepository, never()).create(any());
+        verify(mockedEmployeeRepository, never()).save(any());
     }
 
     @Test
     void should_throw_EmployeeAgeNotValidException_when_create_given_a_employee_with_age_66() {
         //given
-        EmployeeInMemoryRepository mockedEmployeeInMemoryRepository = mock(EmployeeInMemoryRepository.class);
         Employee kitty = new Employee(1, "Kitty", 66, Gender.FEMALE, 8000.0);
         //when
         //then
         assertThrows(EmployeeAgeNotValidException.class, () -> employeeService.create(kitty));
-        verify(mockedEmployeeInMemoryRepository, never()).create(any());
+        verify(mockedEmployeeRepository, never()).save(any());
     }
 
     @Test
@@ -99,7 +99,7 @@ class EmployeeServiceTest {
         //when
         //then
         assertThrows(EmployeeAgeSalaryNotMatchedException.class, () -> employeeService.create(bob));
-        verify(mockedEmployeeInMemoryRepository, never()).create(any());
+        verify(mockedEmployeeRepository, never()).save(any());
     }
 
     @Test
