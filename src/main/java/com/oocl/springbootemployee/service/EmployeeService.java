@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeService {
@@ -34,8 +35,8 @@ public class EmployeeService {
         return employeeRepository.findAll(PageRequest.of(page-1, pageSize)).getContent();
     }
 
-    public Employee findById(Integer employeeId) {
-        return employeeInMemoryRepository.findById(employeeId);
+    public Optional<Employee> findById(Integer employeeId) {
+        return employeeRepository.findById(employeeId);
     }
 
     public Employee create(Employee employee) {

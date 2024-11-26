@@ -2,6 +2,7 @@ package com.oocl.springbootemployee.controller;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import com.oocl.springbootemployee.model.Employee;
 import com.oocl.springbootemployee.model.Gender;
@@ -34,7 +35,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public Employee getEmployeeById(@PathVariable Integer id) {
+    public Optional<Employee> getEmployeeById(@PathVariable Integer id) {
         return employeeService.findById(id);
     }
 
